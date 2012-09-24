@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Functional Design Patterns</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1"/>
+<meta name="title" content="Functional Design Patterns"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-09-24"/>
+<meta name="author" content="Stuart Sierra"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+
+<style type="text/css">
+body {
+   font-family: 'Gill Sans', Arial, sans-serif;
+}
+
+span.tag {
+   display: none;
+}
+
+pre {
+   font-family: Monaco, "Courier New", monospace;
+   font-size: 75%;
+}
+
+#c-panel {
+   background: lightgray;
+   bottom: 0px;
+   border: 1px solid black;
+   font-size: 12pt;
+   position: fixed;
+   right: 0px;
+}
+
+#c-panel a {
+   display: block;
+}
+
+#c-panel .key {
+   display: none;
+}
+
+#c-panel .key {
+   display: none;
+}
+
+
+.org-constant {
+   color: purple;
+}
+
+.org-string, .org-doc {
+   color: darkgreen;
+}
+
+.org-comment {
+   color: darkred;
+}
+
+.org-comment-delimiter {
+   color: darkred;
+}
+
+.org-keyword, .org-builtin, .org-variable-name {
+   color: darkblue;
+}
+
+</style>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">Functional Design Patterns</h1>
+
+
+
+<p>
+by <a href="http://stuartsierra.com/">Stuart Sierra</a> <br/>
+Strange Loop 2012  <br/>
+Saint Louis, MO  <br/>
+September 24, 2012
+</p>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1-2">Intro</a></li>
+<li><a href="#sec-2">State Patterns</a></li>
+<li><a href="#sec-3">Data Building Patterns</a></li>
+<li><a href="#sec-4">Flow Control Patterns</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<hr />
+
+<div id="outline-container-1-2" class="outline-3">
+<h3 id="sec-1-2">Design Patterns in Dynamic Languages &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notitle">notitle</span>&nbsp;<span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-1-2">
+
+
+<p>
+
+</p>
+<p>
+<a href="http://norvig.com/design-patterns/">Design Patterns in Dynamic Programming</a> <br/> (Peter Norvig, 1996-1998)
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-3" class="outline-3">
+<h3 id="sec-1-3">Monads &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notitle">notitle</span>&nbsp;<span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-1-3">
+
+
+<p>
+
+</p>
+<p>
+<a href="http://www.haskell.org/haskellwiki/Monad_tutorials_timeline">Monad Tutorials Timeline</a> (Haskell.org)
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-4" class="outline-3">
+<h3 id="sec-1-4">What Kind of Pattern? &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notitle">notitle</span>&nbsp;<span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-1-4">
+
+
+<p>
+
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-5" class="outline-3">
+<h3 id="sec-1-5">Architectural Patterns &nbsp;&nbsp;&nbsp;<span class="tag"><span class="sideimage">sideimage</span>&nbsp;<span class="notitle">notitle</span>&nbsp;<span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-1-5">
+
+
+<p>
+
+</p>
+<p>
+"An <i>architectural pattern</i> expresses a fundamental structural organization schema for software systems. It provides a set of predefined subsystems, specifies their responsibilities, and includes rules and guidelines for organizing the relationships between them."
+</p>
+<p>(Pattern-Oriented Software Architecture: A System of Patterns)</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-6" class="outline-3">
+<h3 id="sec-1-6">Design Patterns &nbsp;&nbsp;&nbsp;<span class="tag"><span class="sideimage">sideimage</span>&nbsp;<span class="notitle">notitle</span>&nbsp;<span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-1-6">
+
+
+<p>
+
+</p>
+<p>
+"A <i>design pattern</i> provides a scheme for refining the subsystems or components of a software system, or the relationships between them. It describes a commonly-recurring structure of communicating components that solves a general design problem within a particular context."
+</p>
+<p>(Pattern-Oriented Software Architecture: A System of Patterns)</p>
+</div>
+
+</div>
+
+<div id="outline-container-1-7" class="outline-3">
+<h3 id="sec-1-7">Idioms &nbsp;&nbsp;&nbsp;<span class="tag"><span class="sideimage">sideimage</span>&nbsp;<span class="notitle">notitle</span>&nbsp;<span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-1-7">
+
+
+<p>
+
+</p>
+<p>
+"An <i>idiom</i> is a low-level pattern specific to a programming language. an idiom describes how to implement particular aspects of components or the relationships between them using the features of a given language."
+</p>
+<p>(Pattern-Oriented Software Architecture: A System of Patterns)</p>
+</div>
+</div>
+
+</div>
+
+
+<hr />
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2">State Patterns &nbsp;&nbsp;&nbsp;<span class="tag"><span class="topic1">topic1</span>&nbsp;<span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-2">
+
+
+<p>
+
+</p>
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1">State/Event Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-2-1">
+
+
+<ul>
+<li>State is derived from previous state + input
+</li>
+<li>Many diverse inputs
+</li>
+<li>Need to recover past states
+</li>
+<li>Need to visualize intermediate states
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2">State/Event Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-2-2">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">update-state</span> [current-state event]
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">return new state</span>
+  )
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3">State/Event Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-2-3">
+
+
+<p>
+Recreate any past state by reducing over events
+</p>
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">end-state</span> [start-state events]
+  (<span class="org-variable-name">reduce</span> update-state start-state events))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-4" class="outline-3">
+<h3 id="sec-2-4">Consequences Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-2-4">
+
+
+<ul>
+<li>Each event can trigger multiple events
+</li>
+<li>Generated events cause state changes
+</li>
+<li>Need to visualize intermediate states
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-5" class="outline-3">
+<h3 id="sec-2-5">Consequences Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-2-5">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">consequences</span> [current-state event]
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">return a sequence of new events</span>
+  )
+
+(<span class="org-keyword">defn</span> <span class="org-function-name">apply-consequences</span> [current-state event]
+  (<span class="org-variable-name">reduce</span> update-state current-state
+          (consequences current-state event)))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-6" class="outline-3">
+<h3 id="sec-2-6">Consequences Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-2-6">
+
+
+<p>
+Do you allow consequences to have consequences?
+</p>
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">recursive-consequences</span> [current-state event]
+  (<span class="org-variable-name">reduce</span> (<span class="org-keyword">fn</span> [state event]
+            (recursive-consequences
+               state (update-state state event)))
+          current-state
+          (consequences current-state event)))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-2-7" class="outline-3">
+<h3 id="sec-2-7">Consequences Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-2-7">
+
+
+<ul>
+<li>Consequence functions do not compose naturally
+</li>
+<li>Have to update state in between
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">chain-consequences</span> [initial-state consequence-fns]
+  (<span class="org-builtin">loop</span> [state  initial-state
+         fs     consequence-fns
+         output []]
+    (<span class="org-builtin">if</span> (<span class="org-variable-name">seq</span> fs)
+      (<span class="org-builtin">let</span> [events    ((<span class="org-variable-name">first</span> fs) state)
+            new-state (<span class="org-variable-name">reduce</span> update-state state events)]
+        (<span class="org-builtin">recur</span> new-state (<span class="org-variable-name">rest</span> fs) (<span class="org-variable-name">into</span> output events)))
+      output)))
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<hr />
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3">Data Building Patterns &nbsp;&nbsp;&nbsp;<span class="tag"><span class="topic1">topic1</span>&nbsp;<span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-3">
+
+
+<p>
+
+</p>
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1">Accumulator Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-1">
+
+
+<ul>
+<li>Large collection of inputs
+<ul>
+<li>Maybe larger than memory
+</li>
+</ul>
+
+</li>
+<li>Small or scalar result
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2">Accumulator Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-2">
+
+
+<ul>
+<li>Lazy sequences
+<ul>
+<li><code>map</code>, <code>mapcat</code>, <code>filter</code>, etc.
+</li>
+</ul>
+
+</li>
+<li><code>reduce</code> is the universal accumulator
+</li>
+</ul>
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-variable-name">reduce</span> (<span class="org-keyword">fn</span> [result input]
+          <span class="org-comment-delimiter">;; </span><span class="org-comment">return updated result</span>
+          )
+        initial-result
+        inputs)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3">A Digression: MapReduce &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-3">
+
+
+<ul>
+<li>Input is linear, maybe larger than 1 disk
+</li>
+<li>Disks are slow and local to one machine
+</li>
+<li>Networks are slow
+</li>
+<li>Not quite <code>map</code> and <code>reduce</code>
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-4" class="outline-3">
+<h3 id="sec-3-4">A Digression: MapReduce &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-4">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">mapper</span> [value]
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">return a sequence of [key value] pairs</span>
+  )
+
+(<span class="org-keyword">defn</span> <span class="org-function-name">reducer</span> [[key values]]
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">return a sequence of [key value] pairs</span>
+  )
+
+(<span class="org-keyword">defn</span> <span class="org-function-name">shuffle</span> [pairs]
+  (<span class="org-variable-name">reduce</span> (<span class="org-keyword">fn</span> [m [k v]]
+            (<span class="org-variable-name">update-in</span> m [k] (fnil conj []) v))
+          {} pairs))
+
+(<span class="org-keyword">defn</span> <span class="org-function-name">mapreduce</span> [inputs]
+  (<span class="org-variable-name">mapcat</span> reducer (shuffle (<span class="org-variable-name">mapcat</span> mapper inputs))))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-5" class="outline-3">
+<h3 id="sec-3-5">Reduce/Combine Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-5">
+
+
+<ul>
+<li>Input is tree-like
+</li>
+<li>Divide-and-conquer approach
+</li>
+<li>Combining intermediate results is <i>associative</i>
+<ul>
+<li><i>(a + b) + c = a + (b + c)</i>
+</li>
+</ul>
+
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-6" class="outline-3">
+<h3 id="sec-3-6">Reduce/Combine Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-6">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">reduce-fn</span>
+  ([] <span class="org-comment-delimiter">;; </span><span class="org-comment">return initial "identity" value</span>
+     )
+  ([result input] <span class="org-comment-delimiter">;; </span><span class="org-comment">return updated result</span>
+     ))
+
+(<span class="org-keyword">defn</span> <span class="org-function-name">combine-fn</span>
+  ([] <span class="org-comment-delimiter">;; </span><span class="org-comment">return initial "identity" value</span>
+     )
+  ([result-1 result-2]
+     <span class="org-comment-delimiter">;; </span><span class="org-comment">return merged or combined results</span>
+     ))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-7" class="outline-3">
+<h3 id="sec-3-7">Recursive Expansion Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-7">
+
+
+<ul>
+<li>Build up result out of primitives
+</li>
+<li>Build abstractions in layers
+</li>
+<li>Recurse until no more work left to do
+</li>
+<li><i>e.g.</i> macroexpansion, Datomic transaction fns
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-3-8" class="outline-3">
+<h3 id="sec-3-8">Recursive Expansion Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-3-8">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">recursive-expansion</span> [expander input]
+  (<span class="org-builtin">let</span> [output (expander input)]
+    (<span class="org-builtin">if</span> (<span class="org-variable-name">=</span> output input)
+      input
+      (<span class="org-builtin">recur</span> expander output))))
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<hr />
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4">Flow Control Patterns &nbsp;&nbsp;&nbsp;<span class="tag"><span class="topic1">topic1</span>&nbsp;<span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-4">
+
+
+<p>
+
+</p>
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1">Pipeline Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-1">
+
+
+<ul>
+<li>Process with many discrete steps
+</li>
+<li>Similar "shape" of data at each step
+<ul>
+<li>Usually a map or record
+</li>
+</ul>
+
+</li>
+<li>Only one execution path
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2">Pipeline Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-2">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">large-process</span> [input]
+  (<span class="org-builtin">-&gt;</span> input
+      subprocess-a
+      subprocess-b
+      subprocess-c))
+
+(<span class="org-keyword">defn</span> <span class="org-function-name">subprocess-a</span> [data]
+  (<span class="org-builtin">let</span> [{<span class="org-constant">:keys</span> [alpha beta]} data]
+    (<span class="org-builtin">-&gt;</span> data
+        (<span class="org-variable-name">assoc</span> <span class="org-constant">:epsilon</span> (compute-epsilon alpha))
+        (<span class="org-variable-name">update-in</span> [<span class="org-constant">:gamma</span>] merge (compute-gamma beta)))))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-3" class="outline-3">
+<h3 id="sec-4-3">Wrapper Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-3">
+
+
+<ul>
+<li>Process with many discrete steps
+</li>
+<li>One main execution path
+</li>
+<li>Possible branch at each step
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-4" class="outline-3">
+<h3 id="sec-4-4">Wrapper Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-4">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">wrapper</span> [f]
+  (<span class="org-keyword">fn</span> [input]
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">... before ...</span>
+    (f input)
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">... after ...</span>
+    ))
+
+(<span class="org-keyword">def</span> <span class="org-function-name">final-function</span>
+  (<span class="org-builtin">-&gt;</span> original-function wrapper-a wrapper-b wrapper-c))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-5" class="outline-3">
+<h3 id="sec-4-5">Token Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-5">
+
+
+<ul>
+<li>May need to cancel an operation
+</li>
+<li>Operation itself is not an identity
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-6" class="outline-3">
+<h3 id="sec-4-6">Token Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-6">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">begin</span> [target &amp; args]
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">... begin operation or create state in target ...</span>
+
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Return a function:</span>
+  (<span class="org-keyword">fn</span> []
+    <span class="org-comment-delimiter">;; </span><span class="org-comment">... cease operation or destroy state ...</span>
+    ))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-7" class="outline-3">
+<h3 id="sec-4-7">Token Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-7">
+
+
+<p>
+Variation: caller supplies token value
+</p>
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defn</span> <span class="org-function-name">add-watch</span> [reference key function]
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">attach a watcher to reference</span>
+  )
+
+(<span class="org-keyword">defn</span> <span class="org-function-name">remove-watch</span> [reference key]
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">remove the watcher</span>
+  )
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-8" class="outline-3">
+<h3 id="sec-4-8">Observer Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-8">
+
+
+<p>
+Register an <code>observer</code> function with a stateful <code>container</code>
+</p>
+
+
+
+<pre class="src src-clojure">(observer container)                      <span class="org-comment-delimiter">; </span><span class="org-comment">classic Observer</span>
+
+(observer new-state)
+(observer old-state new-state)
+
+(observer container old-state new-state)  <span class="org-comment-delimiter">; </span><span class="org-comment">watches, plus token</span>
+
+(observer old-state new-state delta)
+(observer old-state new-state event)      <span class="org-comment-delimiter">; </span><span class="org-comment">useful for GUIs</span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-9" class="outline-3">
+<h3 id="sec-4-9">Strategy Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-9">
+
+
+<ul>
+<li>Many processes with a similar structure
+</li>
+<li>Need extension points for future variations
+</li>
+</ul>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-10" class="outline-3">
+<h3 id="sec-4-10">Strategy Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-10">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defprotocol</span> <span class="org-function-name">Strategy</span>
+  (step-one [this operation])
+  (step-two [this operation])
+  (step-three [this operation]))
+
+(<span class="org-keyword">defn</span> <span class="org-function-name">process</span> [strategy]
+  (<span class="org-builtin">-&gt;&gt;</span> (initialize-operation)
+       (step-one strategy)
+       (step-two strategy)
+       (step-three strategy)))
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-11" class="outline-3">
+<h3 id="sec-4-11">Strategy Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-11">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">defmulti</span> <span class="org-function-name">extensible-step</span> (<span class="org-keyword">fn</span> [strategy input] strategy))
+
+(<span class="org-keyword">defn</span> <span class="org-function-name">process</span> [input strategy]
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">... common behavior ...</span>
+  (extensible-step strategy input)
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">... common behavior ...</span>
+  )
+
+(<span class="org-keyword">defmethod</span> <span class="org-function-name">extensible-step</span> <span class="org-constant">:strategy-one</span> [_ input] ...)
+(<span class="org-keyword">defmethod</span> <span class="org-function-name">extensible-step</span> <span class="org-constant">:strategy-two</span> [_ input] ...)
+(<span class="org-keyword">defmethod</span> <span class="org-function-name">extensible-step</span> <span class="org-constant">:strategy-three</span> [_ input] ...)
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4-12" class="outline-3">
+<h3 id="sec-4-12">Strategy Pattern &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h3>
+<div class="outline-text-3" id="text-4-12">
+
+
+
+
+
+<pre class="src src-clojure">(<span class="org-keyword">def</span> <span class="org-function-name">default-strategy</span>
+  {<span class="org-constant">:step-one</span> (<span class="org-keyword">fn</span> [operation] ...)
+   <span class="org-constant">:step-two</span> (<span class="org-keyword">fn</span> [operation] ...)
+   <span class="org-constant">:step-three</span> (<span class="org-keyword">fn</span> [operation] ...)})
+
+(<span class="org-keyword">def</span> <span class="org-function-name">alternate-strategy</span>
+  (<span class="org-variable-name">assoc</span> default-strategy
+    <span class="org-constant">:step-two</span> (<span class="org-keyword">fn</span> [operation] ...)))
+
+(<span class="org-keyword">defn</span> <span class="org-function-name">process</span> [strategy]
+  (<span class="org-builtin">-&gt;</span> (initialize-operation)
+      ((<span class="org-constant">:step-one</span> strategy))
+      ((<span class="org-constant">:step-two</span> strategy))
+      ((<span class="org-constant">:step-three</span> strategy))))
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<hr />
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5">Patterns &nbsp;&nbsp;&nbsp;<span class="tag"><span class="notitle">notitle</span>&nbsp;<span class="topic1">topic1</span>&nbsp;<span class="slide">slide</span></span></h2>
+<div class="outline-text-2" id="text-5">
+
+
+<p>
+
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-6" class="outline-2">
+<div class="outline-text-2" id="text-6">
+
+
+<ul>
+<li>Me: <a href="http://twitter.com/stuartsierra">@stuartsierra</a>
+</li>
+<li>Us: <a href="http://clojure.com/">clojure.com</a>, <a href="http://thinkrelevance.com/">thinkrelevance.com</a>
+</li>
+<li><a href="http://www.oracle.com/javaone/index.html">JavaOne</a>: San Francisco, CA, September 30 - October 4
+</li>
+<li><a href="http://chariotsolutions.com/events/the-science-of-big-data">The Science of Big Data</a>: Philadelphia, PA, October 30
+</li>
+<li><a href="http://clojure-conj.org/">Clojure Conj</a>: Raleigh, NC, November 15-17
+<ul>
+<li>Clojure Training: November 12-14
+</li>
+</ul>
+
+</li>
+<li><a href="http://shop.oreilly.com/product/0636920025139.do">ClojureScript: Up and Running</a> early release from O'Reilly
+</li>
+</ul>
+
+<h2 id="sec-6">The End &nbsp;&nbsp;&nbsp;<span class="tag"><span class="slide">slide</span></span></h2>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+</div>
+</div>
+</div>
+
+<div id="postamble">
+
+
+</div>
+</body>
+</html>
