@@ -3,3 +3,5 @@ Slides from Strange Loop 2012 will go here. If possible, please name them like: 
 Additional links:
 
 * Code from Byrd and Friedman's talk: https://github.com/webyrd/quines
+* Prezi for Corey Latislaw: http://prezi.com/fh2uslbr1xs3/the-fragment-transition/ (additional: http://coreylatislaw.com/emerging-technology-for-the-enterprise-preview/)
+* 
